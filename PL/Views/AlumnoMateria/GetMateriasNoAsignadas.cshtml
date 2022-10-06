@@ -1,0 +1,74 @@
+﻿@model ML.AlumnoMateria
+@{
+    ViewBag.Title = "MateriasNoAsignadas";
+}
+
+<h2>Materias</h2>
+
+<div class="row">
+    <div class="col-md-12">
+        <h5>Seleccione una materia para asignarla al alumno</h5>
+        <hr />
+    </div>
+</div>
+
+@*<div class="row">*@
+
+@*<div style="float:right;">
+        @Html.ActionLink("+", "Form", "AlumnoMateria", htmlAttributes: new { @class = "btn btn-success" })
+</div>*@
+
+<br>
+
+<table class="table table-bordered table-responsive">
+    <thead>
+        <tr>
+            <td>Asignar</td>
+            <td class="hidden">IdAlumno</td>
+            <td>IdAlumno</td>
+            <td>IdMateria</td>
+            <td>Alumno</td>
+            <td>Materia</td>
+            <td>Costo</td>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (ML.AlumnoMateria alumno in Model.AlumnoMaterias)
+        {
+            <tr>
+                @*<td><a class="btn btn-warning glyphicon glyphicon-edit" href="@Url.Action("MateriaGetByIdAlumno", "AlumnoMateria", new { IdAlumno = alumno.Alumno.IdAlumno })"></a></td>*@
+
+                <td> <input type="checkbox" data-val="true" id="IsChecked" name="AlumnoMaterias" value="@alumno.Materia.IdMateria"> </td>
+                @*<td class="hidden">@alumno.IdAlumnoMateria</td>*@
+                <td>@alumno.Alumno.IdAlumno</td>
+                <td>@alumno.Materia.IdMateria</td>
+                <td>@alumno.Alumno.Nombre</td>
+                <td>@alumno.Materia.Nombre</td>
+                <td>@alumno.Materia.costo</td>
+                <td></td>
+
+                @*<td><a class="btn btn-danger glyphicon glyphicon-trash" href="@Url.Action("Delete", "Materia", new { IdAlumno = alumno.IdAlumno})" onclick="return confirm('Estas seguro que deseas eliminar este registro?');"></a></td>*@
+            </tr>
+        }
+
+        
+
+        <div class="row">
+            <div class="col-md-12">
+                @using (Html.BeginForm("Form", "AlumnoMateria", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+
+                    <div class="col-md-3">
+                        <input type="submit" value="Guardar" class="btn btn-success" />
+                        @Html.ActionLink("Regresar", "MateriaGetByIdAlumno", "AlumnoMateria", htmlAttributes: new { @class = "btn btn-danger" })
+                    </div>
+
+                }
+
+            </div>
+        </div>
+
+    </tbody>
+</table>
+

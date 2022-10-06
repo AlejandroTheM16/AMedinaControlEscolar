@@ -1,0 +1,75 @@
+﻿@model ML.AlumnoMateria
+@{
+    ViewBag.Title = "MateriaGetById";
+}
+
+<h2>Materias</h2>
+
+<div class="row">
+    <div class="col-md-12">
+        <h5>Seleccione una materia para asignarla al alumno</h5>
+        <hr />
+    </div>
+</div>
+
+@*<div class="row">*@
+<div style="float:right;">
+    @Html.ActionLink("+", "GetMateriasNoAsignadas", "AlumnoMateria", htmlAttributes: new { IdAlumno = Model.Alumno.IdAlumno, @class = "btn btn-success" })
+    <a class="btn btn-warning glyphicon glyphicon-edit" href="@Url.Action("GetMateriasNoAsignadas", "AlumnoMateria", new { IdAlumno = Model.Alumno.IdAlumno })"></a>
+</div>
+
+<br>
+
+<table class="table table-bordered table-responsive">
+    <thead>
+        <tr>
+            <td class="hidden">IdAlumno</td>
+            <td>IdAlumno</td>
+            <td>IdMateria</td>
+            <td>Alumno</td>
+            <td>Materia</td>
+            <td>Costo</td>
+
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (ML.AlumnoMateria alumno in Model.AlumnoMaterias)
+        {
+
+            if (Model.AlumnoMaterias.Count == null)
+            {
+
+                <div class="alert">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    El alumno no tiene materias.
+                </div>
+            }
+            else
+            {
+
+                <tr>
+                    <td class="hidden">@alumno.IdAlumnoMateria</td>
+                    <td>@alumno.Alumno.IdAlumno</td>
+                    <td>@alumno.Materia.IdMateria</td>
+                    <td>@alumno.Alumno.Nombre</td>
+                    <td>@alumno.Materia.Nombre</td>
+                    <td>@alumno.Materia.costo</td>
+                    <td></td>
+
+                    @*<td><a class="btn btn-danger glyphicon glyphicon-trash" href="@Url.Action("Delete", "Materia", new { IdAlumno = alumno.IdAlumno})" onclick="return confirm('Estas seguro que deseas eliminar este registro?');"></a></td>*@
+                </tr>
+
+
+
+            }
+
+        }
+
+        <div class="col-md-3">
+            @Html.ActionLink("Regresar", "GetAll", "AlumnoMateria", htmlAttributes: new { @class = "btn btn-danger" })
+        </div>
+
+    </tbody>
+</table>
+
